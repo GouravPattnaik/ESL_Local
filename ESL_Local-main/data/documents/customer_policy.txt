@@ -1,0 +1,8 @@
+Customer Identification and KYC Policy
+========================================
+All customers must be registered with a unique customer identifier (customer_id).
+A valid government-issued photo ID must be provided at the time of account opening.
+KYC (Know Your Customer) verification is mandatory before any loan disbursement.
+Customers with a credit score below 600 are not eligible for unsecured personal loans.
+Customers with a credit score above 750 qualify for preferential interest rates on home loans.
+All customer data is subject to DPDP Act 2023 regulations and must be stored securely.

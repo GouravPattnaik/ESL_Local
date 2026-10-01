@@ -1,0 +1,134 @@
+11:17:42  INFO      step6.document_processing -- ======================================================================
+11:17:42  INFO      step6.document_processing -- ESA PIPELINE — STEP 6: Document Processing + Vector Store Indexing
+11:17:42  INFO      step6.document_processing -- ======================================================================
+11:17:42  INFO      step6.document_processing -- 
+11:17:42  INFO      step6.document_processing -- PURPOSE : Extract text from unstructured documents, create overlapping
+11:17:42  INFO      step6.document_processing --           chunks, embed them, and index in ChromaDB vector store.
+11:17:42  INFO      step6.document_processing -- WHY     : Enables semantic search (RAG) over documents — linking
+11:17:42  INFO      step6.document_processing --           policy text, contracts, and reports to the knowledge graph.
+11:17:42  INFO      step6.document_processing -- 
+11:17:42  INFO      step6.document_processing -- ── INPUT ────────────────────────────────────────────────────────────
+11:17:42  INFO      step6.document_processing --   Documents directory  : C:\Users\gourav.pattnaik\Downloads\ESL_Local-main\ESL_Local-main\data\documents
+11:17:42  INFO      step6.document_processing --   Embedding provider   : LOCAL
+11:17:42  INFO      step6.document_processing --   Chunk size           : 900 chars | Overlap: 120 chars
+11:17:42  INFO      step6.document_processing --   ChromaDB collection  : esa_documents at local_bucket/vectorstore/chroma
+11:17:42  INFO      step6.document_processing --   AWS equivalent (embed): Amazon Bedrock / OpenAI Embeddings API
+11:17:42  INFO      step6.document_processing --   AWS equivalent (store): Amazon OpenSearch Serverless
+11:17:42  INFO      step6.document_processing -- ────────────────────────────────────────────────────────────────────
+11:17:42  INFO      step6.document_processing -- 
+11:17:42  INFO      step6.document_processing -- ▶ Extracting text and creating chunks ...
+11:17:42  INFO      esa.documents -- [DocProcessing] Input: scanning directory → C:\Users\gourav.pattnaik\Downloads\ESL_Local-main\ESL_Local-main\data\documents
+11:17:42  INFO      esa.documents -- [DocProcessing] Chunk size: 900 chars | Overlap: 120 chars
+11:17:42  INFO      esa.documents -- [DocProcessing] Found 3 supported document(s): ['branch_policy.txt', 'customer_policy.txt', 'loan_policy.txt']
+11:17:42  INFO      esa.documents -- [DocProcessing]   branch_policy.txt → 1 chunk(s) created
+11:17:42  INFO      esa.documents -- [DocProcessing]   customer_policy.txt → 1 chunk(s) created
+11:17:42  INFO      esa.documents -- [DocProcessing]   loan_policy.txt → 2 chunk(s) created
+11:17:42  INFO      esa.documents -- [DocProcessing] Output: 4 total chunks ready for embedding
+11:17:42  INFO      step6.document_processing -- 
+11:17:42  INFO      step6.document_processing -- ▶ Generating embeddings and indexing into ChromaDB ...
+11:17:42  INFO      step6.document_processing --   (First run may download SentenceTransformer model — ~90MB)
+11:17:42  INFO      esa.vectorstore -- [VectorStore] Input: 4 chunks to index
+11:17:42  INFO      esa.vectorstore -- [VectorStore] Target: ChromaDB collection='esa_documents' at path='local_bucket/vectorstore/chroma'
+11:17:44  INFO      esa.vectorstore -- [VectorStore] Embedder: Local SentenceTransformer (model=sentence-transformers/all-MiniLM-L6-v2)
+11:19:48  INFO      sentence_transformers.base.model -- No device provided, using cpu
+11:19:49  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"
+11:19:49  WARNING   huggingface_hub.utils._http -- Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+11:19:49  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/modules.json?%2Fsentence-transformers%2Fall-MiniLM-L6-v2%2Fresolve%2Fmain%2Fmodules.json=&etag=%22952a9b81c0bfd99800fabf352f69c7ccd46c5e43%22 "HTTP/1.1 200 OK"
+11:19:49  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"
+11:19:50  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config_sentence_transformers.json?%2Fsentence-transformers%2Fall-MiniLM-L6-v2%2Fresolve%2Fmain%2Fconfig_sentence_transformers.json=&etag=%22fd1b291129c607e5d49799f87cb219b27f98acdf%22 "HTTP/1.1 200 OK"
+11:19:50  INFO      sentence_transformers.base.model -- Loading SentenceTransformer model from sentence-transformers/all-MiniLM-L6-v2.
+11:19:50  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"
+11:19:50  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config_sentence_transformers.json?%2Fsentence-transformers%2Fall-MiniLM-L6-v2%2Fresolve%2Fmain%2Fconfig_sentence_transformers.json=&etag=%22fd1b291129c607e5d49799f87cb219b27f98acdf%22 "HTTP/1.1 200 OK"
+11:19:50  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md "HTTP/1.1 307 Temporary Redirect"
+11:19:51  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/README.md?%2Fsentence-transformers%2Fall-MiniLM-L6-v2%2Fresolve%2Fmain%2FREADME.md=&etag=%2244af2e3b0fa3a0b6239e48422972bf755f28fde0%22 "HTTP/1.1 200 OK"
+11:19:51  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"
+11:19:51  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/modules.json?%2Fsentence-transformers%2Fall-MiniLM-L6-v2%2Fresolve%2Fmain%2Fmodules.json=&etag=%22952a9b81c0bfd99800fabf352f69c7ccd46c5e43%22 "HTTP/1.1 200 OK"
+11:19:51  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json "HTTP/1.1 307 Temporary Redirect"
+11:19:51  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/sentence_bert_config.json?%2Fsentence-transformers%2Fall-MiniLM-L6-v2%2Fresolve%2Fmain%2Fsentence_bert_config.json=&etag=%2259d594003bf59880a884c574bf88ef7555bb0202%22 "HTTP/1.1 200 OK"
+11:19:52  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json "HTTP/1.1 404 Not Found"
+11:19:52  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+11:19:52  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json?%2Fsentence-transformers%2Fall-MiniLM-L6-v2%2Fresolve%2Fmain%2Fconfig.json=&etag=%2272b987fd805cfa2b58c4c8c952b274a11bfd5a00%22 "HTTP/1.1 200 OK"
+11:19:53  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/processor_config.json "HTTP/1.1 404 Not Found"
+11:19:53  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"
+11:19:53  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/video_preprocessor_config.json "HTTP/1.1 404 Not Found"
+11:19:54  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"
+11:19:54  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+11:19:54  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/tokenizer_config.json?%2Fsentence-transformers%2Fall-MiniLM-L6-v2%2Fresolve%2Fmain%2Ftokenizer_config.json=&etag=%22c79f2b6a0cea6f4b564fed1938984bace9d30ff0%22 "HTTP/1.1 200 OK"
+11:19:54  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+11:19:54  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json?%2Fsentence-transformers%2Fall-MiniLM-L6-v2%2Fresolve%2Fmain%2Fconfig.json=&etag=%2272b987fd805cfa2b58c4c8c952b274a11bfd5a00%22 "HTTP/1.1 200 OK"
+11:19:55  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+11:19:55  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json?%2Fsentence-transformers%2Fall-MiniLM-L6-v2%2Fresolve%2Fmain%2Fconfig.json=&etag=%2272b987fd805cfa2b58c4c8c952b274a11bfd5a00%22 "HTTP/1.1 200 OK"
+11:19:55  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+11:19:55  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/tokenizer_config.json?%2Fsentence-transformers%2Fall-MiniLM-L6-v2%2Fresolve%2Fmain%2Ftokenizer_config.json=&etag=%22c79f2b6a0cea6f4b564fed1938984bace9d30ff0%22 "HTTP/1.1 200 OK"
+11:19:55  INFO      httpx -- HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+11:19:56  INFO      httpx -- HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+11:19:56  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/1_Pooling/config.json "HTTP/1.1 307 Temporary Redirect"
+11:19:56  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/1_Pooling%2Fconfig.json?%2Fsentence-transformers%2Fall-MiniLM-L6-v2%2Fresolve%2Fmain%2F1_Pooling%2Fconfig.json=&etag=%22d1514c3162bbe87b343f565fadc62e6c06f04f03%22 "HTTP/1.1 200 OK"
+11:19:56  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/2_Normalize/config.json "HTTP/1.1 404 Not Found"
+11:19:57  INFO      httpx -- HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2 "HTTP/1.1 200 OK"
+11:19:57  INFO      esa.vectorstore -- [VectorStore] Generating embeddings for 4 chunks ...
+11:19:57  INFO      esa.vectorstore -- [VectorStore] Output: 4 chunks successfully embedded and indexed in ChromaDB
+11:19:57  INFO      step6.document_processing -- 
+11:19:57  INFO      step6.document_processing -- ▶ Running verification search ...
+11:19:57  INFO      step6.document_processing --   Query : 'What are the customer eligibility requirements?'
+11:19:57  INFO      step6.document_processing --   Top-K : 3
+11:19:57  INFO      esa.vectorstore -- [VectorStore] Search query: 'What are the customer eligibility requirements?' | top-k=3
+11:19:57  INFO      esa.vectorstore -- [VectorStore] Embedder: Local SentenceTransformer (model=sentence-transformers/all-MiniLM-L6-v2)
+11:19:57  INFO      sentence_transformers.base.model -- No device provided, using cpu
+11:19:57  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"
+11:19:57  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/modules.json?%2Fsentence-transformers%2Fall-MiniLM-L6-v2%2Fresolve%2Fmain%2Fmodules.json=&etag=%22952a9b81c0bfd99800fabf352f69c7ccd46c5e43%22 "HTTP/1.1 200 OK"
+11:19:58  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"
+11:19:58  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config_sentence_transformers.json?%2Fsentence-transformers%2Fall-MiniLM-L6-v2%2Fresolve%2Fmain%2Fconfig_sentence_transformers.json=&etag=%22fd1b291129c607e5d49799f87cb219b27f98acdf%22 "HTTP/1.1 200 OK"
+11:19:58  INFO      sentence_transformers.base.model -- Loading SentenceTransformer model from sentence-transformers/all-MiniLM-L6-v2.
+11:19:58  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"
+11:19:58  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config_sentence_transformers.json?%2Fsentence-transformers%2Fall-MiniLM-L6-v2%2Fresolve%2Fmain%2Fconfig_sentence_transformers.json=&etag=%22fd1b291129c607e5d49799f87cb219b27f98acdf%22 "HTTP/1.1 200 OK"
+11:19:58  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md "HTTP/1.1 307 Temporary Redirect"
+11:19:58  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/README.md?%2Fsentence-transformers%2Fall-MiniLM-L6-v2%2Fresolve%2Fmain%2FREADME.md=&etag=%2244af2e3b0fa3a0b6239e48422972bf755f28fde0%22 "HTTP/1.1 200 OK"
+11:19:59  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"
+11:19:59  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/modules.json?%2Fsentence-transformers%2Fall-MiniLM-L6-v2%2Fresolve%2Fmain%2Fmodules.json=&etag=%22952a9b81c0bfd99800fabf352f69c7ccd46c5e43%22 "HTTP/1.1 200 OK"
+11:19:59  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json "HTTP/1.1 307 Temporary Redirect"
+11:19:59  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/sentence_bert_config.json?%2Fsentence-transformers%2Fall-MiniLM-L6-v2%2Fresolve%2Fmain%2Fsentence_bert_config.json=&etag=%2259d594003bf59880a884c574bf88ef7555bb0202%22 "HTTP/1.1 200 OK"
+11:19:59  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json "HTTP/1.1 404 Not Found"
+11:20:00  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+11:20:00  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json?%2Fsentence-transformers%2Fall-MiniLM-L6-v2%2Fresolve%2Fmain%2Fconfig.json=&etag=%2272b987fd805cfa2b58c4c8c952b274a11bfd5a00%22 "HTTP/1.1 200 OK"
+11:20:00  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/processor_config.json "HTTP/1.1 404 Not Found"
+11:20:00  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"
+11:20:01  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/video_preprocessor_config.json "HTTP/1.1 404 Not Found"
+11:20:01  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"
+11:20:01  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+11:20:01  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/tokenizer_config.json?%2Fsentence-transformers%2Fall-MiniLM-L6-v2%2Fresolve%2Fmain%2Ftokenizer_config.json=&etag=%22c79f2b6a0cea6f4b564fed1938984bace9d30ff0%22 "HTTP/1.1 200 OK"
+11:20:02  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+11:20:02  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json?%2Fsentence-transformers%2Fall-MiniLM-L6-v2%2Fresolve%2Fmain%2Fconfig.json=&etag=%2272b987fd805cfa2b58c4c8c952b274a11bfd5a00%22 "HTTP/1.1 200 OK"
+11:20:02  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+11:20:02  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json?%2Fsentence-transformers%2Fall-MiniLM-L6-v2%2Fresolve%2Fmain%2Fconfig.json=&etag=%2272b987fd805cfa2b58c4c8c952b274a11bfd5a00%22 "HTTP/1.1 200 OK"
+11:20:02  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+11:20:02  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/tokenizer_config.json?%2Fsentence-transformers%2Fall-MiniLM-L6-v2%2Fresolve%2Fmain%2Ftokenizer_config.json=&etag=%22c79f2b6a0cea6f4b564fed1938984bace9d30ff0%22 "HTTP/1.1 200 OK"
+11:20:03  INFO      httpx -- HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+11:20:03  INFO      httpx -- HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+11:20:03  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/1_Pooling/config.json "HTTP/1.1 307 Temporary Redirect"
+11:20:03  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/1_Pooling%2Fconfig.json?%2Fsentence-transformers%2Fall-MiniLM-L6-v2%2Fresolve%2Fmain%2F1_Pooling%2Fconfig.json=&etag=%22d1514c3162bbe87b343f565fadc62e6c06f04f03%22 "HTTP/1.1 200 OK"
+11:20:03  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/2_Normalize/config.json "HTTP/1.1 404 Not Found"
+11:20:04  INFO      httpx -- HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2 "HTTP/1.1 200 OK"
+11:20:04  INFO      esa.vectorstore -- [VectorStore] Search returned 3 result(s)
+11:20:04  INFO      step6.document_processing -- 
+11:20:04  INFO      step6.document_processing -- ── OUTPUT ───────────────────────────────────────────────────────────
+11:20:04  INFO      step6.document_processing --   Chunks indexed      : 4
+11:20:04  INFO      step6.document_processing --   ChromaDB path       : C:\Users\gourav.pattnaik\Downloads\ESL_Local-main\ESL_Local-main\local_bucket\vectorstore\chroma
+11:20:04  INFO      step6.document_processing --   Verification hits   : 3 result(s) returned
+11:20:04  INFO      step6.document_processing -- 
+11:20:04  INFO      step6.document_processing --   [Result 1] Source: customer_policy.txt
+11:20:04  INFO      step6.document_processing --              Text  : Customer Identification and KYC Policy ======================================== All customers must be registered with a unique customer identifier (cu...
+11:20:04  INFO      step6.document_processing -- 
+11:20:04  INFO      step6.document_processing --   [Result 2] Source: loan_policy.txt
+11:20:04  INFO      step6.document_processing --              Text  : harge for Personal and Auto Loans....
+11:20:04  INFO      step6.document_processing -- 
+11:20:04  INFO      step6.document_processing --   [Result 3] Source: loan_policy.txt
+11:20:04  INFO      step6.document_processing --              Text  : Loan Eligibility and Risk Policy ================================= Home Loans are offered to customers with a minimum credit score of 680 and a maximu...
+11:20:04  INFO      step6.document_processing -- 
+11:20:04  INFO      step6.document_processing --   AWS equivalent : s3://<bucket>/vectorstore/ → OpenSearch index
+11:20:04  INFO      step6.document_processing -- ────────────────────────────────────────────────────────────────────
+11:20:04  INFO      step6.document_processing -- 
+11:20:04  INFO      step6.document_processing -- ✅ Step 6 COMPLETE — Documents indexed in ChromaDB.
+11:20:04  INFO      step6.document_processing --    Next step → Run: python scripts/step7_graph_load.py
+11:20:04  INFO      step6.document_processing --    To ask questions: python scripts/step8_query_rag.py "your question"
+11:20:04  INFO      step6.document_processing --    Log saved → C:\Users\gourav.pattnaik\Downloads\ESL_Local-main\ESL_Local-main\logs\step6_document_processing_20260930_111729.log

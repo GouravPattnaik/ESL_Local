@@ -1,0 +1,9 @@
+Branch Operations and Service Policy
+=====================================
+The Main Branch (B-MAIN) is the headquarters and handles high-net-worth individuals and corporate accounts.
+Customers registered at B-MAIN receive priority support and access to a dedicated relationship manager.
+The North Branch (B-NORTH), South Branch (B-SOUTH), and East Branch (B-EAST) serve retail customers.
+All branches are authorized to open Savings and Current accounts.
+Loan applications above 10,00,000 INR must be reviewed and approved by the Main Branch.
+Each branch maintains its own daily transaction ledger which is reconciled centrally at end-of-day.
+Inter-branch transfers are processed using the NEFT system within 2 business hours.

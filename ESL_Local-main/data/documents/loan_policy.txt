@@ -1,0 +1,9 @@
+Loan Eligibility and Risk Policy
+=================================
+Home Loans are offered to customers with a minimum credit score of 680 and a maximum loan-to-value (LTV) ratio of 80%.
+Personal Loans are unsecured and require a minimum credit score of 650. Maximum tenure is 5 years.
+Auto Loans require a minimum 20% down payment and have a maximum tenure of 7 years.
+Any loan account that has missed 3 consecutive EMI payments is classified as Overdue and reported to the credit bureau.
+Overdue loan accounts are flagged for manual review by the risk management team within 24 hours.
+Loan interest rates are reviewed quarterly by the credit committee and are linked to the RBI repo rate.
+Early repayment is permitted without penalty for Home Loans but attracts a 2% prepayment charge for Personal and Auto Loans.

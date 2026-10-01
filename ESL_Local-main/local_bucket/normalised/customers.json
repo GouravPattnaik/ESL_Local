@@ -1,0 +1,98 @@
+[
+  {
+    "customer_id": "C001",
+    "full_name": "Gourav Pattnaik",
+    "email": "gourav.pattnaik@email.com",
+    "phone": "9876543210",
+    "branch_id": "B-MAIN",
+    "credit_score": 780
+  },
+  {
+    "customer_id": "C002",
+    "full_name": "Mira Das",
+    "email": "mira.das@email.com",
+    "phone": "9876543211",
+    "branch_id": "B-NORTH",
+    "credit_score": 650
+  },
+  {
+    "customer_id": "C003",
+    "full_name": "Arjun Sharma",
+    "email": "arjun.sharma@email.com",
+    "phone": "9876543212",
+    "branch_id": "B-SOUTH",
+    "credit_score": 720
+  },
+  {
+    "customer_id": "C004",
+    "full_name": "Sarah Connor",
+    "email": "sarah.connor@email.com",
+    "phone": "9876543213",
+    "branch_id": "B-MAIN",
+    "credit_score": 810
+  },
+  {
+    "customer_id": "C005",
+    "full_name": "Gourav Patnaik",
+    "email": "gourav.patnaik@email.com",
+    "phone": "9876543214",
+    "branch_id": "B-EAST",
+    "credit_score": 670
+  },
+  {
+    "customer_id": "C006",
+    "full_name": "John Doe",
+    "email": "john.doe@email.com",
+    "phone": "9876543215",
+    "branch_id": "B-NORTH",
+    "credit_score": 590
+  },
+  {
+    "customer_id": "C007",
+    "full_name": "Jane Smith",
+    "email": "jane.smith@email.com",
+    "phone": "9876543216",
+    "branch_id": "B-SOUTH",
+    "credit_score": 740
+  },
+  {
+    "customer_id": "C008",
+    "full_name": "Alice Johnson",
+    "email": "alice.johnson@email.com",
+    "phone": "9876543217",
+    "branch_id": "B-MAIN",
+    "credit_score": 820
+  },
+  {
+    "customer_id": "C009",
+    "full_name": "Bob Williams",
+    "email": "bob.williams@email.com",
+    "phone": "9876543218",
+    "branch_id": "B-EAST",
+    "credit_score": 610
+  },
+  {
+    "customer_id": "C010",
+    "full_name": "Charlie Brown",
+    "email": "charlie.brown@email.com",
+    "phone": "9876543219",
+    "branch_id": "B-NORTH",
+    "credit_score": 755
+  },
+  {
+    "customer_id": "C011",
+    "full_name": "Priya Nair",
+    "email": "priya.nair@email.com",
+    "phone": "9876543220",
+    "branch_id": "B-SOUTH",
+    "credit_score": 690
+  },
+  {
+    "customer_id": "C012",
+    "full_name": "Ravi Kumar",
+    "email": "ravi.kumar@email.com",
+    "phone": "9876543221",
+    "branch_id": "B-MAIN",
+    "credit_score": 800
+  }
+]

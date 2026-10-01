@@ -1,0 +1,19 @@
+08:24:24  INFO      step7.graph_load -- ======================================================================
+08:24:24  INFO      step7.graph_load -- ESA PIPELINE — STEP 7: Graph Load (RDF → Neo4j / Neptune)
+08:24:24  INFO      step7.graph_load -- ======================================================================
+08:24:24  INFO      step7.graph_load -- 
+08:24:24  INFO      step7.graph_load -- PURPOSE : Load A-Box N-Quads into a graph database for SPARQL/Cypher queries.
+08:24:24  INFO      step7.graph_load -- WHY     : Neptune (or Neo4j locally) enables traversal queries across
+08:24:24  INFO      step7.graph_load --           Customer → Account → Loan → Branch relationships that are
+08:24:24  INFO      step7.graph_load --           difficult in relational databases.
+08:24:24  INFO      step7.graph_load -- 
+08:24:24  INFO      step7.graph_load -- ── INPUT ────────────────────────────────────────────────────────────
+08:24:24  INFO      step7.graph_load --   A-Box N-Quads : D:\Semantic_Layer\local_bucket\knowledge\abox\instances.nq
+08:24:24  INFO      step7.graph_load --   File exists   : False
+08:24:24  INFO      step7.graph_load --   Neo4j URI     : bolt://localhost:7687 (local stand-in for Neptune)
+08:24:24  INFO      step7.graph_load --   Neo4j user    : neo4j
+08:24:24  INFO      step7.graph_load --   Neo4j DB      : neo4j
+08:24:24  INFO      step7.graph_load --   Dry run       : True
+08:24:24  INFO      step7.graph_load -- ────────────────────────────────────────────────────────────────────
+08:24:24  ERROR     step7.graph_load -- FATAL: A-Box N-Quads not found at: local_bucket\knowledge\abox\instances.nq
+08:24:24  ERROR     step7.graph_load -- Fix: Run Step 5 first → python scripts/step5_abox_rdf_generation.py

@@ -1,0 +1,94 @@
+08:24:49  INFO      step7.graph_load -- ======================================================================
+08:24:49  INFO      step7.graph_load -- ESA PIPELINE — STEP 7: Graph Load (RDF → Neo4j / Neptune)
+08:24:49  INFO      step7.graph_load -- ======================================================================
+08:24:49  INFO      step7.graph_load -- 
+08:24:49  INFO      step7.graph_load -- PURPOSE : Load A-Box N-Quads into a graph database for SPARQL/Cypher queries.
+08:24:49  INFO      step7.graph_load -- WHY     : Neptune (or Neo4j locally) enables traversal queries across
+08:24:49  INFO      step7.graph_load --           Customer → Account → Loan → Branch relationships that are
+08:24:49  INFO      step7.graph_load --           difficult in relational databases.
+08:24:49  INFO      step7.graph_load -- 
+08:24:49  INFO      step7.graph_load -- ── INPUT ────────────────────────────────────────────────────────────
+08:24:49  INFO      step7.graph_load --   A-Box N-Quads : D:\Semantic_Layer\local_bucket\knowledge\abox\instances.nq
+08:24:49  INFO      step7.graph_load --   File exists   : True
+08:24:49  INFO      step7.graph_load --   Neo4j URI     : bolt://localhost:7687 (local stand-in for Neptune)
+08:24:49  INFO      step7.graph_load --   Neo4j user    : neo4j
+08:24:49  INFO      step7.graph_load --   Neo4j DB      : neo4j
+08:24:49  INFO      step7.graph_load --   Dry run       : False
+08:24:49  INFO      step7.graph_load -- ────────────────────────────────────────────────────────────────────
+08:24:49  INFO      step7.graph_load --   N-Quads lines (triples) to load: 228
+08:24:49  INFO      step7.graph_load -- 
+08:24:49  INFO      step7.graph_load -- ▶ Loading N-Quads into Neo4j ...
+08:24:49  INFO      step7.graph_load --   Connecting to: bolt://localhost:7687
+08:24:55  ERROR     step7.graph_load --   Neo4j load FAILED: Couldn't connect to localhost:7687 (resolved to ('[::1]:7687', '127.0.0.1:7687')):
+Failed to establish connection to ResolvedIPv6Address(('::1', 7687, 0, 0)) (reason [WinError 10061] No connection could be made because the target machine actively refused it)
+Failed to establish connection to ResolvedIPv4Address(('127.0.0.1', 7687)) (reason [WinError 10061] No connection could be made because the target machine actively refused it)
+08:24:55  ERROR     step7.graph_load -- 
+08:24:55  ERROR     step7.graph_load --   Common fixes:
+08:24:55  ERROR     step7.graph_load --     1. Start Neo4j: neo4j start (or via Neo4j Desktop)
+08:24:55  ERROR     step7.graph_load --     2. Check NEO4J_URI / NEO4J_USER / NEO4J_PASSWORD in .env
+08:24:55  ERROR     step7.graph_load --     3. Neo4j is OPTIONAL — the RDF N-Quads are the canonical output.
+08:24:55  ERROR     step7.graph_load --     4. For AWS target, use Neptune bulk load from S3 instead.
+08:24:55  INFO      step7.graph_load -- 
+08:24:55  INFO      step7.graph_load --   Proceeding to show sample queries regardless ...
+08:24:55  INFO      step7.graph_load -- 
+08:24:55  INFO      step7.graph_load -- ▶ Sample queries for exploration:
+08:24:55  INFO      step7.graph_load -- 
+08:24:55  INFO      step7.graph_load --   ── LOCAL Neo4j Cypher (http://localhost:7474) ──────────────────
+08:24:55  INFO      step7.graph_load --   // Neo4j Cypher — sample queries (run in Neo4j Browser at http://localhost:7474)
+08:24:55  INFO      step7.graph_load --   
+08:24:55  INFO      step7.graph_load --     // Count all RDF nodes
+08:24:55  INFO      step7.graph_load --     MATCH (n:RDFTerm) RETURN count(n) AS total_nodes;
+08:24:55  INFO      step7.graph_load --   
+08:24:55  INFO      step7.graph_load --     // Find customer C001 and all related nodes
+08:24:55  INFO      step7.graph_load --     MATCH (c:RDFTerm {iri: "https://example.org/esa/customer/C001"})-[r]->(x)
+08:24:55  INFO      step7.graph_load --     RETURN c.iri, r.predicate, x.value LIMIT 20;
+08:24:55  INFO      step7.graph_load --   
+08:24:55  INFO      step7.graph_load --     // Find all loans linked to any customer
+08:24:55  INFO      step7.graph_load --     MATCH (c:RDFTerm)-[r:RDF_REL {predicate: "https://example.org/esa/hasLoan"}]->(l:RDFTerm)
+08:24:55  INFO      step7.graph_load --     RETURN c.iri AS customer, l.iri AS loan LIMIT 20;
+08:24:55  INFO      step7.graph_load -- 
+08:24:55  INFO      step7.graph_load --   ── AWS Neptune SPARQL (Neptune endpoint) ───────────────────────
+08:24:55  INFO      step7.graph_load --   # Neptune SPARQL — equivalent queries via SPARQL endpoint
+08:24:55  INFO      step7.graph_load --   
+08:24:55  INFO      step7.graph_load --     # Find all customers and their credit scores
+08:24:55  INFO      step7.graph_load --     PREFIX ex: <https://example.org/esa/>
+08:24:55  INFO      step7.graph_load --     SELECT ?customer ?name ?score WHERE {
+08:24:55  INFO      step7.graph_load --       ?customer a ex:Customer ;
+08:24:55  INFO      step7.graph_load --                 ex:fullName ?name ;
+08:24:55  INFO      step7.graph_load --                 ex:creditScore ?score .
+08:24:55  INFO      step7.graph_load --     } ORDER BY DESC(?score)
+08:24:55  INFO      step7.graph_load --   
+08:24:55  INFO      step7.graph_load --     # Find all loans for a specific customer
+08:24:55  INFO      step7.graph_load --     PREFIX ex: <https://example.org/esa/>
+08:24:55  INFO      step7.graph_load --     SELECT ?loan ?type ?amount WHERE {
+08:24:55  INFO      step7.graph_load --       ex:customer/C001 ex:hasLoan ?loan .
+08:24:55  INFO      step7.graph_load --       ?loan ex:loanType ?type ;
+08:24:55  INFO      step7.graph_load --             ex:loanAmount ?amount .
+08:24:55  INFO      step7.graph_load --     }
+08:24:55  INFO      step7.graph_load --   
+08:24:55  INFO      step7.graph_load --     # Customers with credit score < 700 and their loans
+08:24:55  INFO      step7.graph_load --     PREFIX ex: <https://example.org/esa/>
+08:24:55  INFO      step7.graph_load --     SELECT ?name ?score ?loanId ?amount WHERE {
+08:24:55  INFO      step7.graph_load --       ?c a ex:Customer ;
+08:24:55  INFO      step7.graph_load --          ex:fullName ?name ;
+08:24:55  INFO      step7.graph_load --          ex:creditScore ?score ;
+08:24:55  INFO      step7.graph_load --          ex:hasLoan ?loan .
+08:24:55  INFO      step7.graph_load --       ?loan ex:loanId ?loanId ;
+08:24:55  INFO      step7.graph_load --             ex:loanAmount ?amount .
+08:24:55  INFO      step7.graph_load --       FILTER(?score < 700)
+08:24:55  INFO      step7.graph_load --     }
+08:24:55  INFO      step7.graph_load -- 
+08:24:55  INFO      step7.graph_load -- ── OUTPUT ───────────────────────────────────────────────────────────
+08:24:55  INFO      step7.graph_load --   Neo4j graph populated with A-Box RDF statements
+08:24:55  INFO      step7.graph_load --   N-Quads canonical file : D:\Semantic_Layer\local_bucket\knowledge\abox\instances.nq
+08:24:55  INFO      step7.graph_load --   AWS equivalent         : Neptune bulk load from S3:
+08:24:55  INFO      step7.graph_load --     aws neptune-graph start-import-task \
+08:24:55  INFO      step7.graph_load --       --graph-identifier <graph-id> \
+08:24:55  INFO      step7.graph_load --       --source s3://<bucket>/knowledge/abox/instances.nq \
+08:24:55  INFO      step7.graph_load --       --format NQUADS
+08:24:55  INFO      step7.graph_load -- ────────────────────────────────────────────────────────────────────
+08:24:55  INFO      step7.graph_load -- 
+08:24:55  INFO      step7.graph_load -- ✅ Step 7 COMPLETE — Graph load done (or dry-run shown).
+08:24:55  INFO      step7.graph_load --    Explore the graph: http://localhost:7474 (Neo4j Browser)
+08:24:55  INFO      step7.graph_load --    Next step → Run: python scripts/step8_query_rag.py "your question"
+08:24:55  INFO      step7.graph_load --    Log saved → D:\Semantic_Layer\logs\step7_graph_load_20260929_082449.log
