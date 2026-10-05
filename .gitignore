@@ -13,3 +13,18 @@ wheels/
 package/
 deployment_package.zip
 notification.json
+
+# env
+.env
+
+# local Bucket
+local_bucket
+
+# ESL venv folder
+ESL_Local-main/
+
+# Logs folder
+logs/
+
+# Scratch folder
+scratch/

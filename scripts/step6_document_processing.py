@@ -20,7 +20,7 @@ Locally we:
   4. Generate vector embeddings for each chunk:
        - Local mode: SentenceTransformers (all-MiniLM-L6-v2, free, offline)
        - OpenAI mode: OpenAI text-embedding-3-small (paid API, set OPENAI_API_KEY)
-  5. Upsert chunks + embeddings into ChromaDB persistent collection.
+  5. Upsert chunks + embeddings into AWS OpenSearch (or local ChromaDB fallback).
   6. Run a quick verification search to confirm the index works.
 
 WHY DOCUMENT PROCESSING SEPARATE FROM STRUCTURED DATA?
@@ -42,17 +42,18 @@ ARCHITECTURE MAPPING (from the diagram)
   extract_text() in documents.py   → Amazon Bedrock (Claude) for extraction
   load_chunks() in documents.py    → Doc Processing Lambda
   index_chunks() in vectorstore.py → Amazon OpenSearch vector index
-  ChromaDB local_bucket/vectorstore/ → OpenSearch Serverless collection
+  OpenSearch (OPENSEARCH_HOST)     → Amazon OpenSearch domain
 
 INPUTS
 ------
   - DOCS_DIR (.env) : Directory with .txt / .md / .pdf / .docx files
   - EMBEDDING_PROVIDER (.env) : "local" (free) or "openai" (paid API)
-  - CHROMA_DIR (.env) : Persistent ChromaDB storage path
+  - OPENSEARCH_HOST (.env) : AWS OpenSearch domain endpoint
+  - OPENSEARCH_INDEX (.env) : Index name (default: esa_documents)
 
 OUTPUTS
 -------
-  - ChromaDB collection at CHROMA_DIR with embedded document chunks
+  - OpenSearch index with embedded document chunks
   - Verification search results printed to console
   - Console log with per-file chunk counts and embedding timings
 
@@ -115,16 +116,16 @@ def main() -> None:
     from esa.vectorstore import index_chunks, search_chunks
 
     docs_dir       = setting("DOCS_DIR", "data/documents")
-    chroma_dir     = setting("CHROMA_DIR", "local_bucket/vectorstore/chroma")
     embed_provider = setting("EMBEDDING_PROVIDER", "local")
-    collection     = setting("CHROMA_COLLECTION", "esa_documents")
+    opensearch_host  = setting("OPENSEARCH_HOST", "")
+    opensearch_index = setting("OPENSEARCH_INDEX", "esa_documents")
 
     log.info("=" * 70)
     log.info("ESA PIPELINE — STEP 6: Document Processing + Vector Store Indexing")
     log.info("=" * 70)
     log.info("")
     log.info("PURPOSE : Extract text from unstructured documents, create overlapping")
-    log.info("          chunks, embed them, and index in ChromaDB vector store.")
+    log.info("          chunks, embed them, and index in AWS OpenSearch.")
     log.info("WHY     : Enables semantic search (RAG) over documents — linking")
     log.info("          policy text, contracts, and reports to the knowledge graph.")
     log.info("")
@@ -133,9 +134,10 @@ def main() -> None:
     log.info("  Embedding provider   : %s", embed_provider.upper())
     log.info("  Chunk size           : %d chars | Overlap: %d chars",
              args.chunk_chars, args.overlap)
-    log.info("  ChromaDB collection  : %s at %s", collection, chroma_dir)
+    log.info("  OpenSearch host      : %s", opensearch_host or "(not set — check .env)")
+    log.info("  OpenSearch index     : %s", opensearch_index)
     log.info("  AWS equivalent (embed): Amazon Bedrock / OpenAI Embeddings API")
-    log.info("  AWS equivalent (store): Amazon OpenSearch Serverless")
+    log.info("  AWS equivalent (store): Amazon OpenSearch domain")
     log.info("────────────────────────────────────────────────────────────────────")
 
     if not Path(docs_dir).is_dir():
@@ -154,13 +156,14 @@ def main() -> None:
 
     # ── Embedding + indexing ──────────────────────────────────────────────────
     log.info("")
-    log.info("▶ Generating embeddings and indexing into ChromaDB ...")
-    log.info("  (First run may download SentenceTransformer model — ~90MB)")
+    log.info("Generating embeddings and indexing into OpenSearch ...")
+    if embed_provider == "local":
+        log.info("  (First run may download SentenceTransformer model — ~90MB)")
     n_indexed = index_chunks(chunks)
 
     # ── Verification search ───────────────────────────────────────────────────
     log.info("")
-    log.info("▶ Running verification search ...")
+    log.info("Running verification search ...")
     log.info("  Query : '%s'", args.verify)
     log.info("  Top-K : %d", args.top_k)
     results = search_chunks(args.verify, k=args.top_k)
@@ -168,7 +171,7 @@ def main() -> None:
     log.info("")
     log.info("── OUTPUT ───────────────────────────────────────────────────────────")
     log.info("  Chunks indexed      : %d", n_indexed)
-    log.info("  ChromaDB path       : %s", Path(chroma_dir).resolve())
+    log.info("  OpenSearch index    : %s", opensearch_index)
     log.info("  Verification hits   : %d result(s) returned", len(results))
     log.info("")
     for i, hit in enumerate(results, 1):
@@ -177,10 +180,10 @@ def main() -> None:
         log.info("  [Result %d] Source: %s", i, Path(src).name)
         log.info("             Text  : %s...", txt)
         log.info("")
-    log.info("  AWS equivalent : s3://<bucket>/vectorstore/ → OpenSearch index")
+    log.info("  AWS equivalent : S3 → Lambda → OpenSearch index")
     log.info("────────────────────────────────────────────────────────────────────")
     log.info("")
-    log.info("✅ Step 6 COMPLETE — Documents indexed in ChromaDB.")
+    log.info("Step 6 COMPLETE — Documents indexed in OpenSearch.")
     log.info("   Next step → Run: python scripts/step7_graph_load.py")
     log.info("   To ask questions: python scripts/step8_query_rag.py \"your question\"")
     log.info("   Log saved → %s", _log_file)

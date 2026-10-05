@@ -45,7 +45,8 @@ ARCHITECTURE MAPPING (from the diagram)
 INPUTS
 ------
   - Question from command line (positional argument)
-  - CHROMA_DIR (.env) : Must be populated by Step 6
+  - OPENSEARCH_HOST (.env) : Must be set (populated by vectorstore.py)
+  - OPENSEARCH_INDEX (.env) : Index name (default: esa_documents)
   - LLM_PROVIDER (.env) : "none" (retrieval only) or "openai" (LLM answer)
   - OPENAI_API_KEY (.env) : Required if LLM_PROVIDER=openai
 
@@ -102,8 +103,8 @@ def main() -> None:
     from esa.config import setting
     from esa.vectorstore import search_chunks, answer_query
 
-    chroma_dir    = setting("CHROMA_DIR", "local_bucket/vectorstore/chroma")
-    collection    = setting("CHROMA_COLLECTION", "esa_documents")
+    opensearch_host  = setting("OPENSEARCH_HOST", "")
+    opensearch_index = setting("OPENSEARCH_INDEX", "esa_documents")
     llm_provider  = setting("LLM_PROVIDER", "none").lower()
     embed_provider = setting("EMBEDDING_PROVIDER", "local").lower()
 
@@ -121,13 +122,13 @@ def main() -> None:
     log.info("  Top-K results    : %d", args.top_k)
     log.info("  Embedding model  : %s", embed_provider.upper())
     log.info("  LLM provider     : %s", llm_provider.upper())
-    log.info("  ChromaDB path    : %s", Path(chroma_dir).resolve())
-    log.info("  Collection       : %s", collection)
+    log.info("  OpenSearch host  : %s", opensearch_host or "(not set — check .env)")
+    log.info("  OpenSearch index : %s", opensearch_index)
     log.info("────────────────────────────────────────────────────────────────────")
 
-    if not Path(chroma_dir).is_dir():
-        log.error("FATAL: ChromaDB not found at: %s", Path(chroma_dir).resolve())
-        log.error("Fix: Run Step 6 first → python scripts/step6_document_processing.py")
+    if not opensearch_host:
+        log.error("FATAL: OPENSEARCH_HOST is not set in .env")
+        log.error("Fix: Add OPENSEARCH_HOST=<your-domain>.es.amazonaws.com to your .env")
         sys.exit(1)
 
     # ── Semantic search ───────────────────────────────────────────────────────
