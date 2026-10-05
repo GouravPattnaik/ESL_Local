@@ -1,0 +1,8 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ex: <https://example.org/esa/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:CustomerShape a sh:NodeShape ;
+    sh:targetClass ex:Customer ;
+    sh:property [ sh:path ex:customerId ; sh:datatype xsd:string ; sh:minCount 1 ] ;
+    sh:property [ sh:path ex:fullName ; sh:datatype xsd:string ; sh:minCount 1 ] .

@@ -1,0 +1,82 @@
+17:11:42  INFO      pipeline.orchestrator -- ╔══════════════════════════════════════════════════════════════════════╗
+17:11:42  INFO      pipeline.orchestrator -- ║   ESA — Enterprise Semantic Analytics  Full Pipeline Orchestrator   ║
+17:11:42  INFO      pipeline.orchestrator -- ╚══════════════════════════════════════════════════════════════════════╝
+17:11:42  INFO      pipeline.orchestrator -- 
+17:11:42  INFO      pipeline.orchestrator --   Architecture: CENtree → Lambda → S3 → Neptune + OpenSearch + RAG
+17:11:42  INFO      pipeline.orchestrator --   Local POC   : Turtle → PyOxigraph → local_bucket → ChromaDB → Neo4j
+17:11:42  INFO      pipeline.orchestrator -- 
+17:11:42  INFO      pipeline.orchestrator --   Steps to run: [1, 2, 3, 4, 5, 6, 7]
+17:11:42  INFO      pipeline.orchestrator --   Master log  : C:\Users\gourav.pattnaik\Downloads\ESL_Local-main\ESL_Local-main\logs\run_pipeline_20260929_171142.log
+17:11:42  INFO      pipeline.orchestrator -- 
+17:11:42  INFO      pipeline.orchestrator -- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+17:11:42  INFO      pipeline.orchestrator --   ▶ STEP 1 / 7 : Ontology / T-Box Ingestion
+17:11:42  INFO      pipeline.orchestrator -- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+17:11:42  INFO      pipeline.orchestrator --   Running: C:\Users\gourav.pattnaik\Downloads\ESL_Local-main\ESL_Local-main\.venv\Scripts\python.exe C:\Users\gourav.pattnaik\Downloads\ESL_Local-main\ESL_Local-main\scripts\step1_ontology_tbox.py
+17:11:43  INFO      pipeline.orchestrator --   ✓ Step 1 complete in 1.1s
+17:11:43  INFO      pipeline.orchestrator -- 
+17:11:43  INFO      pipeline.orchestrator -- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+17:11:43  INFO      pipeline.orchestrator --   ▶ STEP 2 / 7 : Metadata Normalisation
+17:11:43  INFO      pipeline.orchestrator -- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+17:11:43  INFO      pipeline.orchestrator --   Running: C:\Users\gourav.pattnaik\Downloads\ESL_Local-main\ESL_Local-main\.venv\Scripts\python.exe C:\Users\gourav.pattnaik\Downloads\ESL_Local-main\ESL_Local-main\scripts\step2_metadata_normalisation.py
+17:11:44  INFO      pipeline.orchestrator --   ✓ Step 2 complete in 1.0s
+17:11:44  INFO      pipeline.orchestrator -- 
+17:11:44  INFO      pipeline.orchestrator -- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+17:11:44  INFO      pipeline.orchestrator --   ▶ STEP 3 / 7 : Semantic Mapping
+17:11:44  INFO      pipeline.orchestrator -- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+17:11:44  INFO      pipeline.orchestrator --   Running: C:\Users\gourav.pattnaik\Downloads\ESL_Local-main\ESL_Local-main\.venv\Scripts\python.exe C:\Users\gourav.pattnaik\Downloads\ESL_Local-main\ESL_Local-main\scripts\step3_semantic_mapping.py
+17:11:45  INFO      pipeline.orchestrator --   ✓ Step 3 complete in 1.0s
+17:11:45  INFO      pipeline.orchestrator -- 
+17:11:45  INFO      pipeline.orchestrator -- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+17:11:45  INFO      pipeline.orchestrator --   ▶ STEP 4 / 7 : Entity Resolution
+17:11:45  INFO      pipeline.orchestrator -- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+17:11:45  INFO      pipeline.orchestrator --   Running: C:\Users\gourav.pattnaik\Downloads\ESL_Local-main\ESL_Local-main\.venv\Scripts\python.exe C:\Users\gourav.pattnaik\Downloads\ESL_Local-main\ESL_Local-main\scripts\step4_entity_resolution.py
+17:11:46  INFO      pipeline.orchestrator --   ✓ Step 4 complete in 1.1s
+17:11:46  INFO      pipeline.orchestrator -- 
+17:11:46  INFO      pipeline.orchestrator -- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+17:11:46  INFO      pipeline.orchestrator --   ▶ STEP 5 / 7 : A-Box RDF Generation + SHACL
+17:11:46  INFO      pipeline.orchestrator -- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+17:11:46  INFO      pipeline.orchestrator --   Running: C:\Users\gourav.pattnaik\Downloads\ESL_Local-main\ESL_Local-main\.venv\Scripts\python.exe C:\Users\gourav.pattnaik\Downloads\ESL_Local-main\ESL_Local-main\scripts\step5_abox_rdf_generation.py
+17:11:48  INFO      pipeline.orchestrator --   ✓ Step 5 complete in 1.9s
+17:11:48  INFO      pipeline.orchestrator -- 
+17:11:48  INFO      pipeline.orchestrator -- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+17:11:48  INFO      pipeline.orchestrator --   ▶ STEP 6 / 7 : Document Processing + Vector Store
+17:11:48  INFO      pipeline.orchestrator -- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+17:11:48  INFO      pipeline.orchestrator --   Running: C:\Users\gourav.pattnaik\Downloads\ESL_Local-main\ESL_Local-main\.venv\Scripts\python.exe C:\Users\gourav.pattnaik\Downloads\ESL_Local-main\ESL_Local-main\scripts\step6_document_processing.py
+17:12:37  INFO      pipeline.orchestrator --   ✓ Step 6 complete in 49.0s
+17:12:37  INFO      pipeline.orchestrator -- 
+17:12:37  INFO      pipeline.orchestrator -- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+17:12:37  INFO      pipeline.orchestrator --   ▶ STEP 7 / 7 : Graph Load (Neo4j / Neptune)
+17:12:37  INFO      pipeline.orchestrator -- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+17:12:37  INFO      pipeline.orchestrator --   Running: C:\Users\gourav.pattnaik\Downloads\ESL_Local-main\ESL_Local-main\.venv\Scripts\python.exe C:\Users\gourav.pattnaik\Downloads\ESL_Local-main\ESL_Local-main\scripts\step7_graph_load.py
+17:12:43  INFO      pipeline.orchestrator --   ✓ Step 7 complete in 6.0s
+17:12:43  INFO      pipeline.orchestrator -- 
+17:12:43  INFO      pipeline.orchestrator -- 
+17:12:43  INFO      pipeline.orchestrator -- ╔══════════════════════════════════════════════════════════════════════╗
+17:12:43  INFO      pipeline.orchestrator -- ║   PIPELINE SUMMARY                                                   ║
+17:12:43  INFO      pipeline.orchestrator -- ╠══════════════════════════════════════════════════════════════════════╣
+17:12:43  INFO      pipeline.orchestrator -- ║  Step 1: Ontology / T-Box Ingestion                 ✓ PASSED    1.1s  ║
+17:12:43  INFO      pipeline.orchestrator -- ║  Step 2: Metadata Normalisation                     ✓ PASSED    1.0s  ║
+17:12:43  INFO      pipeline.orchestrator -- ║  Step 3: Semantic Mapping                           ✓ PASSED    1.0s  ║
+17:12:43  INFO      pipeline.orchestrator -- ║  Step 4: Entity Resolution                          ✓ PASSED    1.1s  ║
+17:12:43  INFO      pipeline.orchestrator -- ║  Step 5: A-Box RDF Generation + SHACL               ✓ PASSED    1.9s  ║
+17:12:43  INFO      pipeline.orchestrator -- ║  Step 6: Document Processing + Vector Store         ✓ PASSED   49.0s  ║
+17:12:43  INFO      pipeline.orchestrator -- ║  Step 7: Graph Load (Neo4j / Neptune)               ✓ PASSED    6.0s  ║
+17:12:43  INFO      pipeline.orchestrator -- ║                                                                      ║
+17:12:43  INFO      pipeline.orchestrator -- ║  Total time: 61.1s                                                   ║
+17:12:43  INFO      pipeline.orchestrator -- ╠══════════════════════════════════════════════════════════════════════╣
+17:12:43  INFO      pipeline.orchestrator -- ║  ✅ ALL STEPS PASSED — Knowledge graph ready!                        ║
+17:12:43  INFO      pipeline.orchestrator -- ╠══════════════════════════════════════════════════════════════════════╣
+17:12:43  INFO      pipeline.orchestrator -- ║  Next: Query the pipeline —                                          ║
+17:12:43  INFO      pipeline.orchestrator -- ║    python scripts/step8_query_rag.py "your question here"            ║
+17:12:43  INFO      pipeline.orchestrator -- ║    Explore graph: http://localhost:7474 (Neo4j Browser)               ║
+17:12:43  INFO      pipeline.orchestrator -- ╠══════════════════════════════════════════════════════════════════════╣
+17:12:43  INFO      pipeline.orchestrator -- ║  Outputs in: local_bucket/                                           ║
+17:12:43  INFO      pipeline.orchestrator -- ║    ontology/centree/ontology.nq                                      ║
+17:12:43  INFO      pipeline.orchestrator -- ║    normalised/customers.json, accounts.json, loans.json              ║
+17:12:43  INFO      pipeline.orchestrator -- ║    semantic_mapping/approved_mappings.json                           ║
+17:12:43  INFO      pipeline.orchestrator -- ║    knowledge/entity_resolution/results.json                          ║
+17:12:43  INFO      pipeline.orchestrator -- ║    knowledge/abox/instances.nq                                       ║
+17:12:43  INFO      pipeline.orchestrator -- ║    vectorstore/chroma/                                               ║
+17:12:43  INFO      pipeline.orchestrator -- ╠══════════════════════════════════════════════════════════════════════╣
+17:12:43  INFO      pipeline.orchestrator -- ║  Master log: run_pipeline_20260929_171142.log                        ║
+17:12:43  INFO      pipeline.orchestrator -- ╚══════════════════════════════════════════════════════════════════════╝

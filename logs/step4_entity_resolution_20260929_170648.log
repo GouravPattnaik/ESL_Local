@@ -1,0 +1,42 @@
+17:06:48  INFO      step4.entity_resolution --   Using normalised customers from Step 2: local_bucket\normalised\customers.json
+17:06:48  INFO      step4.entity_resolution -- ======================================================================
+17:06:48  INFO      step4.entity_resolution -- ESA PIPELINE — STEP 4: Entity Resolution
+17:06:48  INFO      step4.entity_resolution -- ======================================================================
+17:06:48  INFO      step4.entity_resolution -- 
+17:06:48  INFO      step4.entity_resolution -- PURPOSE : Determine which records refer to the same real-world entity.
+17:06:48  INFO      step4.entity_resolution -- WHY     : Prevents duplicate customer nodes in the A-Box RDF graph.
+17:06:48  INFO      step4.entity_resolution --           Strong ID matching is safe; fuzzy names only flag for review.
+17:06:48  INFO      step4.entity_resolution --           (Architecture example: 'Ravi', 'R. Kumar', 'Ravi Kumar')
+17:06:48  INFO      step4.entity_resolution -- THRESHOLD: 96% name similarity triggers a review candidate flag
+17:06:48  INFO      step4.entity_resolution -- 
+17:06:48  INFO      step4.entity_resolution -- ── INPUT ────────────────────────────────────────────────────────────
+17:06:48  INFO      step4.entity_resolution --   Customers file : C:\Users\gourav.pattnaik\Downloads\ESL_Local-main\ESL_Local-main\local_bucket\normalised\customers.json
+17:06:48  INFO      step4.entity_resolution --   File exists    : True
+17:06:48  INFO      step4.entity_resolution -- ────────────────────────────────────────────────────────────────────
+17:06:48  INFO      step4.entity_resolution --   Loaded 12 customer records
+17:06:48  INFO      step4.entity_resolution -- 
+17:06:48  INFO      step4.entity_resolution -- ▶ Running Entity Resolution ...
+17:06:48  INFO      step4.entity_resolution --   Phase 1: Strong ID matching (customer_id key) ...
+17:06:48  INFO      step4.entity_resolution --   Phase 2: Fuzzy name scan (threshold=96%) ...
+17:06:48  INFO      esa.entity_resolution -- [EntityResolution] Input: 12 customer records to process
+17:06:48  INFO      esa.entity_resolution -- [EntityResolution] Canonical entities formed: 12
+17:06:48  INFO      esa.entity_resolution -- [EntityResolution] Scanning for fuzzy name-match candidates (threshold=96%) ...
+17:06:48  WARNING   esa.entity_resolution -- [EntityResolution]   CANDIDATE: 'Gourav Pattnaik' (C001) ↔ 'Gourav Patnaik' (C005) — similarity=96% → flagged for MANUAL REVIEW
+17:06:48  INFO      esa.entity_resolution -- [EntityResolution] Output: 12 canonical entities | 12 decisions | 1 review candidates
+17:06:48  INFO      step4.entity_resolution -- 
+17:06:48  INFO      step4.entity_resolution -- ── OUTPUT ───────────────────────────────────────────────────────────
+17:06:48  INFO      step4.entity_resolution --   Canonical entities formed : 12
+17:06:48  INFO      step4.entity_resolution --   Identity decisions logged : 12
+17:06:48  INFO      step4.entity_resolution --   Review candidates flagged : 1
+17:06:48  WARNING   step4.entity_resolution -- 
+17:06:48  WARNING   step4.entity_resolution --   ⚠ REVIEW REQUIRED for the following candidate pairs:
+17:06:48  WARNING   step4.entity_resolution --     'Gourav Pattnaik' (C001) ↔ 'Gourav Patnaik' (C005) — similarity=96%
+17:06:48  WARNING   step4.entity_resolution -- 
+17:06:48  WARNING   step4.entity_resolution --   Action: Inspect results.json and update SEMANTIC_MAPPING_TABLE if merge is confirmed.
+17:06:48  INFO      step4.entity_resolution --   ER results file    : C:\Users\gourav.pattnaik\Downloads\ESL_Local-main\ESL_Local-main\local_bucket\knowledge\entity_resolution\results.json
+17:06:48  INFO      step4.entity_resolution --   AWS equivalent     : s3://<bucket>/knowledge/entity_resolution/results.json
+17:06:48  INFO      step4.entity_resolution -- ────────────────────────────────────────────────────────────────────
+17:06:48  INFO      step4.entity_resolution -- 
+17:06:48  INFO      step4.entity_resolution -- ✅ Step 4 COMPLETE — Entity resolution results written.
+17:06:48  INFO      step4.entity_resolution --    Next step → Run: python scripts/step5_abox_rdf_generation.py
+17:06:48  INFO      step4.entity_resolution --    Log saved → C:\Users\gourav.pattnaik\Downloads\ESL_Local-main\ESL_Local-main\logs\step4_entity_resolution_20260929_170648.log

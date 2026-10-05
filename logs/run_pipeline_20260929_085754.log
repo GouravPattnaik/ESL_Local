@@ -1,0 +1,82 @@
+08:57:54  INFO      pipeline.orchestrator -- ╔══════════════════════════════════════════════════════════════════════╗
+08:57:54  INFO      pipeline.orchestrator -- ║   ESA — Enterprise Semantic Analytics  Full Pipeline Orchestrator   ║
+08:57:54  INFO      pipeline.orchestrator -- ╚══════════════════════════════════════════════════════════════════════╝
+08:57:54  INFO      pipeline.orchestrator -- 
+08:57:54  INFO      pipeline.orchestrator --   Architecture: CENtree → Lambda → S3 → Neptune + OpenSearch + RAG
+08:57:54  INFO      pipeline.orchestrator --   Local POC   : Turtle → PyOxigraph → local_bucket → ChromaDB → Neo4j
+08:57:54  INFO      pipeline.orchestrator -- 
+08:57:54  INFO      pipeline.orchestrator --   Steps to run: [1, 2, 3, 4, 5, 6, 7]
+08:57:54  INFO      pipeline.orchestrator --   Master log  : D:\Semantic_Layer\logs\run_pipeline_20260929_085754.log
+08:57:54  INFO      pipeline.orchestrator -- 
+08:57:54  INFO      pipeline.orchestrator -- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+08:57:54  INFO      pipeline.orchestrator --   ▶ STEP 1 / 7 : Ontology / T-Box Ingestion
+08:57:54  INFO      pipeline.orchestrator -- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+08:57:54  INFO      pipeline.orchestrator --   Running: D:\Semantic_Layer\venv\Scripts\python.exe D:\Semantic_Layer\scripts\step1_ontology_tbox.py
+08:57:54  INFO      pipeline.orchestrator --   ✓ Step 1 complete in 0.4s
+08:57:54  INFO      pipeline.orchestrator -- 
+08:57:54  INFO      pipeline.orchestrator -- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+08:57:54  INFO      pipeline.orchestrator --   ▶ STEP 2 / 7 : Metadata Normalisation
+08:57:54  INFO      pipeline.orchestrator -- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+08:57:54  INFO      pipeline.orchestrator --   Running: D:\Semantic_Layer\venv\Scripts\python.exe D:\Semantic_Layer\scripts\step2_metadata_normalisation.py
+08:57:55  INFO      pipeline.orchestrator --   ✓ Step 2 complete in 0.4s
+08:57:55  INFO      pipeline.orchestrator -- 
+08:57:55  INFO      pipeline.orchestrator -- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+08:57:55  INFO      pipeline.orchestrator --   ▶ STEP 3 / 7 : Semantic Mapping
+08:57:55  INFO      pipeline.orchestrator -- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+08:57:55  INFO      pipeline.orchestrator --   Running: D:\Semantic_Layer\venv\Scripts\python.exe D:\Semantic_Layer\scripts\step3_semantic_mapping.py
+08:57:55  INFO      pipeline.orchestrator --   ✓ Step 3 complete in 0.4s
+08:57:55  INFO      pipeline.orchestrator -- 
+08:57:55  INFO      pipeline.orchestrator -- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+08:57:55  INFO      pipeline.orchestrator --   ▶ STEP 4 / 7 : Entity Resolution
+08:57:55  INFO      pipeline.orchestrator -- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+08:57:55  INFO      pipeline.orchestrator --   Running: D:\Semantic_Layer\venv\Scripts\python.exe D:\Semantic_Layer\scripts\step4_entity_resolution.py
+08:57:55  INFO      pipeline.orchestrator --   ✓ Step 4 complete in 0.4s
+08:57:55  INFO      pipeline.orchestrator -- 
+08:57:55  INFO      pipeline.orchestrator -- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+08:57:55  INFO      pipeline.orchestrator --   ▶ STEP 5 / 7 : A-Box RDF Generation + SHACL
+08:57:55  INFO      pipeline.orchestrator -- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+08:57:55  INFO      pipeline.orchestrator --   Running: D:\Semantic_Layer\venv\Scripts\python.exe D:\Semantic_Layer\scripts\step5_abox_rdf_generation.py
+08:57:59  INFO      pipeline.orchestrator --   ✓ Step 5 complete in 3.9s
+08:57:59  INFO      pipeline.orchestrator -- 
+08:57:59  INFO      pipeline.orchestrator -- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+08:57:59  INFO      pipeline.orchestrator --   ▶ STEP 6 / 7 : Document Processing + Vector Store
+08:57:59  INFO      pipeline.orchestrator -- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+08:57:59  INFO      pipeline.orchestrator --   Running: D:\Semantic_Layer\venv\Scripts\python.exe D:\Semantic_Layer\scripts\step6_document_processing.py
+08:59:21  INFO      pipeline.orchestrator --   ✓ Step 6 complete in 81.2s
+08:59:21  INFO      pipeline.orchestrator -- 
+08:59:21  INFO      pipeline.orchestrator -- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+08:59:21  INFO      pipeline.orchestrator --   ▶ STEP 7 / 7 : Graph Load (Neo4j / Neptune)
+08:59:21  INFO      pipeline.orchestrator -- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+08:59:21  INFO      pipeline.orchestrator --   Running: D:\Semantic_Layer\venv\Scripts\python.exe D:\Semantic_Layer\scripts\step7_graph_load.py
+08:59:24  INFO      pipeline.orchestrator --   ✓ Step 7 complete in 3.3s
+08:59:24  INFO      pipeline.orchestrator -- 
+08:59:24  INFO      pipeline.orchestrator -- 
+08:59:24  INFO      pipeline.orchestrator -- ╔══════════════════════════════════════════════════════════════════════╗
+08:59:24  INFO      pipeline.orchestrator -- ║   PIPELINE SUMMARY                                                   ║
+08:59:24  INFO      pipeline.orchestrator -- ╠══════════════════════════════════════════════════════════════════════╣
+08:59:24  INFO      pipeline.orchestrator -- ║  Step 1: Ontology / T-Box Ingestion                 ✓ PASSED    0.4s  ║
+08:59:24  INFO      pipeline.orchestrator -- ║  Step 2: Metadata Normalisation                     ✓ PASSED    0.4s  ║
+08:59:24  INFO      pipeline.orchestrator -- ║  Step 3: Semantic Mapping                           ✓ PASSED    0.4s  ║
+08:59:24  INFO      pipeline.orchestrator -- ║  Step 4: Entity Resolution                          ✓ PASSED    0.4s  ║
+08:59:24  INFO      pipeline.orchestrator -- ║  Step 5: A-Box RDF Generation + SHACL               ✓ PASSED    3.9s  ║
+08:59:24  INFO      pipeline.orchestrator -- ║  Step 6: Document Processing + Vector Store         ✓ PASSED   81.2s  ║
+08:59:24  INFO      pipeline.orchestrator -- ║  Step 7: Graph Load (Neo4j / Neptune)               ✓ PASSED    3.3s  ║
+08:59:24  INFO      pipeline.orchestrator -- ║                                                                      ║
+08:59:24  INFO      pipeline.orchestrator -- ║  Total time: 90.0s                                                   ║
+08:59:24  INFO      pipeline.orchestrator -- ╠══════════════════════════════════════════════════════════════════════╣
+08:59:24  INFO      pipeline.orchestrator -- ║  ✅ ALL STEPS PASSED — Knowledge graph ready!                        ║
+08:59:24  INFO      pipeline.orchestrator -- ╠══════════════════════════════════════════════════════════════════════╣
+08:59:24  INFO      pipeline.orchestrator -- ║  Next: Query the pipeline —                                          ║
+08:59:24  INFO      pipeline.orchestrator -- ║    python scripts/step8_query_rag.py "your question here"            ║
+08:59:24  INFO      pipeline.orchestrator -- ║    Explore graph: http://localhost:7474 (Neo4j Browser)               ║
+08:59:24  INFO      pipeline.orchestrator -- ╠══════════════════════════════════════════════════════════════════════╣
+08:59:24  INFO      pipeline.orchestrator -- ║  Outputs in: local_bucket/                                           ║
+08:59:24  INFO      pipeline.orchestrator -- ║    ontology/centree/ontology.nq                                      ║
+08:59:24  INFO      pipeline.orchestrator -- ║    normalised/customers.json, accounts.json, loans.json              ║
+08:59:24  INFO      pipeline.orchestrator -- ║    semantic_mapping/approved_mappings.json                           ║
+08:59:24  INFO      pipeline.orchestrator -- ║    knowledge/entity_resolution/results.json                          ║
+08:59:24  INFO      pipeline.orchestrator -- ║    knowledge/abox/instances.nq                                       ║
+08:59:24  INFO      pipeline.orchestrator -- ║    vectorstore/chroma/                                               ║
+08:59:24  INFO      pipeline.orchestrator -- ╠══════════════════════════════════════════════════════════════════════╣
+08:59:24  INFO      pipeline.orchestrator -- ║  Master log: run_pipeline_20260929_085754.log                        ║
+08:59:24  INFO      pipeline.orchestrator -- ╚══════════════════════════════════════════════════════════════════════╝

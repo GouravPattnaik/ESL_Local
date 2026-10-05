@@ -1,0 +1,44 @@
+08:57:55  INFO      step2.metadata_normalisation -- ======================================================================
+08:57:55  INFO      step2.metadata_normalisation -- ESA PIPELINE — STEP 2: Metadata Normalisation
+08:57:55  INFO      step2.metadata_normalisation -- ======================================================================
+08:57:55  INFO      step2.metadata_normalisation -- 
+08:57:55  INFO      step2.metadata_normalisation -- PURPOSE : Standardise raw field names, coerce types, and validate
+08:57:55  INFO      step2.metadata_normalisation --           required fields before semantic mapping to the ontology.
+08:57:55  INFO      step2.metadata_normalisation -- WHY     : Semantic Mapping (Step 3) requires canonical field names.
+08:57:55  INFO      step2.metadata_normalisation --           Collibra provides the business glossary; we simulate its
+08:57:55  INFO      step2.metadata_normalisation --           synonym lookups via the FIELD_MAP dictionaries above.
+08:57:55  INFO      step2.metadata_normalisation -- 
+08:57:55  INFO      step2.metadata_normalisation -- ── INPUT ────────────────────────────────────────────────────────────
+08:57:55  INFO      step2.metadata_normalisation --   Records directory : D:\Semantic_Layer\data\records
+08:57:55  INFO      step2.metadata_normalisation -- ────────────────────────────────────────────────────────────────────
+08:57:55  INFO      step2.metadata_normalisation -- 
+08:57:55  INFO      step2.metadata_normalisation -- ▶ Loading raw source records ...
+08:57:55  INFO      step2.metadata_normalisation -- [Load][customers] Loaded 12 raw records from customers.json
+08:57:55  INFO      step2.metadata_normalisation -- [Load][accounts] Loaded 12 raw records from accounts.json
+08:57:55  INFO      step2.metadata_normalisation -- [Load][loans] Loaded 8 raw records from loans.json
+08:57:55  INFO      step2.metadata_normalisation -- 
+08:57:55  INFO      step2.metadata_normalisation -- ▶ Normalising Customer records ...
+08:57:55  INFO      step2.metadata_normalisation -- [Normalise][customers] Input: 12 raw records
+08:57:55  INFO      step2.metadata_normalisation -- [Normalise][customers] Output: 12 valid records | 0 invalid (dropped)
+08:57:55  INFO      step2.metadata_normalisation -- 
+08:57:55  INFO      step2.metadata_normalisation -- ▶ Normalising Account records ...
+08:57:55  INFO      step2.metadata_normalisation -- [Normalise][accounts] Input: 12 raw records
+08:57:55  INFO      step2.metadata_normalisation -- [Normalise][accounts] Output: 12 valid records | 0 invalid (dropped)
+08:57:55  INFO      step2.metadata_normalisation -- 
+08:57:55  INFO      step2.metadata_normalisation -- ▶ Normalising Loan records ...
+08:57:55  INFO      step2.metadata_normalisation -- [Normalise][loans] Input: 8 raw records
+08:57:55  INFO      step2.metadata_normalisation -- [Normalise][loans] Output: 8 valid records | 0 invalid (dropped)
+08:57:55  INFO      step2.metadata_normalisation -- 
+08:57:55  INFO      step2.metadata_normalisation -- ▶ Writing normalised records to local bucket ...
+08:57:55  INFO      step2.metadata_normalisation -- 
+08:57:55  INFO      step2.metadata_normalisation -- ── OUTPUT ───────────────────────────────────────────────────────────
+08:57:55  INFO      step2.metadata_normalisation --   Customers  : 12 records → D:\Semantic_Layer\local_bucket\normalised\customers.json
+08:57:55  INFO      step2.metadata_normalisation --   Accounts   : 12 records → D:\Semantic_Layer\local_bucket\normalised\accounts.json
+08:57:55  INFO      step2.metadata_normalisation --   Loans      : 8 records → D:\Semantic_Layer\local_bucket\normalised\loans.json
+08:57:55  INFO      step2.metadata_normalisation --   Total invalid rows dropped: 0
+08:57:55  INFO      step2.metadata_normalisation --   AWS equivalent: s3://<bucket>/normalised/
+08:57:55  INFO      step2.metadata_normalisation -- ────────────────────────────────────────────────────────────────────
+08:57:55  INFO      step2.metadata_normalisation -- 
+08:57:55  INFO      step2.metadata_normalisation -- ✅ Step 2 COMPLETE — Metadata normalised and written to local bucket.
+08:57:55  INFO      step2.metadata_normalisation --    Next step → Run: python scripts/step3_semantic_mapping.py
+08:57:55  INFO      step2.metadata_normalisation --    Log saved → D:\Semantic_Layer\logs\step2_metadata_norm_20260929_085754.log

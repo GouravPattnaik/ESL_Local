@@ -1,0 +1,128 @@
+13:56:22  INFO      step8.query_rag -- ======================================================================
+13:56:22  INFO      step8.query_rag -- ESA PIPELINE — STEP 8: Query / RAG
+13:56:22  INFO      step8.query_rag -- ======================================================================
+13:56:22  INFO      step8.query_rag -- 
+13:56:22  INFO      step8.query_rag -- PURPOSE : Answer questions over indexed documents using semantic search.
+13:56:22  INFO      step8.query_rag -- WHY     : RAG (Retrieval-Augmented Generation) retrieves relevant passages
+13:56:22  INFO      step8.query_rag --           then optionally uses an LLM to generate a grounded answer.
+13:56:22  INFO      step8.query_rag --           This avoids hallucination by constraining LLM to retrieved context.
+13:56:22  INFO      step8.query_rag -- 
+13:56:22  INFO      step8.query_rag -- ── INPUT ────────────────────────────────────────────────────────────
+13:56:22  INFO      step8.query_rag --   Question         : How many customers are present
+13:56:22  INFO      step8.query_rag --   Top-K results    : 4
+13:56:22  INFO      step8.query_rag --   Embedding model  : LOCAL
+13:56:22  INFO      step8.query_rag --   LLM provider     : NONE
+13:56:22  INFO      step8.query_rag --   ChromaDB path    : C:\Users\gourav.pattnaik\Downloads\ESL_Local-main\ESL_Local-main\local_bucket\vectorstore\chroma
+13:56:22  INFO      step8.query_rag --   Collection       : esa_documents
+13:56:22  INFO      step8.query_rag -- ────────────────────────────────────────────────────────────────────
+13:56:22  INFO      step8.query_rag -- 
+13:56:22  INFO      step8.query_rag -- ▶ Performing semantic search ...
+13:56:22  INFO      esa.vectorstore -- [VectorStore] Search query: 'How many customers are present' | top-k=4
+13:56:23  INFO      esa.vectorstore -- [VectorStore] Embedder: Local SentenceTransformer (model=sentence-transformers/all-MiniLM-L6-v2)
+13:56:55  INFO      sentence_transformers.base.model -- No device provided, using cpu
+13:56:58  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"
+13:56:58  WARNING   huggingface_hub.utils._http -- Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+13:56:58  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/modules.json?%2Fsentence-transformers%2Fall-MiniLM-L6-v2%2Fresolve%2Fmain%2Fmodules.json=&etag=%22952a9b81c0bfd99800fabf352f69c7ccd46c5e43%22 "HTTP/1.1 200 OK"
+13:56:58  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"
+13:56:58  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config_sentence_transformers.json?%2Fsentence-transformers%2Fall-MiniLM-L6-v2%2Fresolve%2Fmain%2Fconfig_sentence_transformers.json=&etag=%22fd1b291129c607e5d49799f87cb219b27f98acdf%22 "HTTP/1.1 200 OK"
+13:56:58  INFO      sentence_transformers.base.model -- Loading SentenceTransformer model from sentence-transformers/all-MiniLM-L6-v2.
+13:56:58  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"
+13:56:58  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config_sentence_transformers.json?%2Fsentence-transformers%2Fall-MiniLM-L6-v2%2Fresolve%2Fmain%2Fconfig_sentence_transformers.json=&etag=%22fd1b291129c607e5d49799f87cb219b27f98acdf%22 "HTTP/1.1 200 OK"
+13:56:59  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md "HTTP/1.1 307 Temporary Redirect"
+13:56:59  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/README.md?%2Fsentence-transformers%2Fall-MiniLM-L6-v2%2Fresolve%2Fmain%2FREADME.md=&etag=%2244af2e3b0fa3a0b6239e48422972bf755f28fde0%22 "HTTP/1.1 200 OK"
+13:56:59  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"
+13:56:59  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/modules.json?%2Fsentence-transformers%2Fall-MiniLM-L6-v2%2Fresolve%2Fmain%2Fmodules.json=&etag=%22952a9b81c0bfd99800fabf352f69c7ccd46c5e43%22 "HTTP/1.1 200 OK"
+13:56:59  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json "HTTP/1.1 307 Temporary Redirect"
+13:56:59  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/sentence_bert_config.json?%2Fsentence-transformers%2Fall-MiniLM-L6-v2%2Fresolve%2Fmain%2Fsentence_bert_config.json=&etag=%2259d594003bf59880a884c574bf88ef7555bb0202%22 "HTTP/1.1 200 OK"
+13:56:59  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json "HTTP/1.1 404 Not Found"
+13:57:00  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+13:57:00  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json?%2Fsentence-transformers%2Fall-MiniLM-L6-v2%2Fresolve%2Fmain%2Fconfig.json=&etag=%2272b987fd805cfa2b58c4c8c952b274a11bfd5a00%22 "HTTP/1.1 200 OK"
+13:57:00  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/processor_config.json "HTTP/1.1 404 Not Found"
+13:57:01  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"
+13:57:01  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/video_preprocessor_config.json "HTTP/1.1 404 Not Found"
+13:57:01  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"
+13:57:02  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+13:57:02  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/tokenizer_config.json?%2Fsentence-transformers%2Fall-MiniLM-L6-v2%2Fresolve%2Fmain%2Ftokenizer_config.json=&etag=%22c79f2b6a0cea6f4b564fed1938984bace9d30ff0%22 "HTTP/1.1 200 OK"
+13:57:02  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+13:57:02  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json?%2Fsentence-transformers%2Fall-MiniLM-L6-v2%2Fresolve%2Fmain%2Fconfig.json=&etag=%2272b987fd805cfa2b58c4c8c952b274a11bfd5a00%22 "HTTP/1.1 200 OK"
+13:57:02  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+13:57:02  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json?%2Fsentence-transformers%2Fall-MiniLM-L6-v2%2Fresolve%2Fmain%2Fconfig.json=&etag=%2272b987fd805cfa2b58c4c8c952b274a11bfd5a00%22 "HTTP/1.1 200 OK"
+13:57:03  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+13:57:03  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/tokenizer_config.json?%2Fsentence-transformers%2Fall-MiniLM-L6-v2%2Fresolve%2Fmain%2Ftokenizer_config.json=&etag=%22c79f2b6a0cea6f4b564fed1938984bace9d30ff0%22 "HTTP/1.1 200 OK"
+13:57:03  INFO      httpx -- HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+13:57:03  INFO      httpx -- HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+13:57:03  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/1_Pooling/config.json "HTTP/1.1 307 Temporary Redirect"
+13:57:03  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/1_Pooling%2Fconfig.json?%2Fsentence-transformers%2Fall-MiniLM-L6-v2%2Fresolve%2Fmain%2F1_Pooling%2Fconfig.json=&etag=%22d1514c3162bbe87b343f565fadc62e6c06f04f03%22 "HTTP/1.1 200 OK"
+13:57:04  INFO      httpx -- HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/2_Normalize/config.json "HTTP/1.1 404 Not Found"
+13:57:04  INFO      httpx -- HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2 "HTTP/1.1 200 OK"
+13:57:04  INFO      esa.vectorstore -- [VectorStore] Search returned 4 result(s)
+13:57:04  INFO      step8.query_rag -- 
+13:57:04  INFO      step8.query_rag -- ── RETRIEVED PASSAGES ───────────────────────────────────────────────
+13:57:04  INFO      step8.query_rag -- 
+13:57:04  INFO      step8.query_rag --   [Passage 1] Source: customer_policy.txt | Chunk: 0
+13:57:04  INFO      step8.query_rag --   ────────────────────────────────────────────────────────────
+13:57:04  INFO      step8.query_rag --   Customer Identification and KYC Policy
+13:57:04  INFO      step8.query_rag --   ========================================
+13:57:04  INFO      step8.query_rag --   All customers must be registered with a unique customer identifier (customer_id).
+13:57:04  INFO      step8.query_rag --   A valid government-issued photo ID must be provided at the time of account opening.
+13:57:04  INFO      step8.query_rag --   KYC (Know Your Customer) verification is mandatory before any loan disbursement.
+13:57:04  INFO      step8.query_rag --   Customers with a credit score below 600 are not eligible for unsecured personal loans.
+13:57:04  INFO      step8.query_rag --   Customers with a credit score above 750 qualify for preferential interest rates on home loans.
+13:57:04  INFO      step8.query_rag --   All customer data is subject to DPDP Act 2023 regulations and must be stored securely.
+13:57:04  INFO      step8.query_rag -- 
+13:57:04  INFO      step8.query_rag --   [Passage 2] Source: branch_policy.txt | Chunk: 0
+13:57:04  INFO      step8.query_rag --   ────────────────────────────────────────────────────────────
+13:57:04  INFO      step8.query_rag --   Branch Operations and Service Policy
+13:57:04  INFO      step8.query_rag --   =====================================
+13:57:04  INFO      step8.query_rag --   The Main Branch (B-MAIN) is the headquarters and handles high-net-worth individuals and corporate accounts.
+13:57:04  INFO      step8.query_rag --   Customers registered at B-MAIN receive priority support and access to a dedicated relationship manager.
+13:57:04  INFO      step8.query_rag --   The North Branch (B-NORTH), South Branch (B-SOUTH), and East Branch (B-EAST) serve retail customers.
+13:57:04  INFO      step8.query_rag --   All branches are authorized to open Savings and Current accounts.
+13:57:04  INFO      step8.query_rag --   Loan applications above 10,00,000 INR must be reviewed and approved by the Main Branch.
+13:57:04  INFO      step8.query_rag --   Each branch maintains its own daily transaction ledger which is reconciled centrally at end-of-day.
+13:57:04  INFO      step8.query_rag --   Inter-branch transfers are processed using the NEFT system within 2 business hours.
+13:57:04  INFO      step8.query_rag -- 
+13:57:04  INFO      step8.query_rag --   [Passage 3] Source: loan_policy.txt | Chunk: 1
+13:57:04  INFO      step8.query_rag --   ────────────────────────────────────────────────────────────
+13:57:04  INFO      step8.query_rag --   harge for Personal and Auto Loans.
+13:57:04  INFO      step8.query_rag -- 
+13:57:04  INFO      step8.query_rag --   [Passage 4] Source: loan_policy.txt | Chunk: 0
+13:57:04  INFO      step8.query_rag --   ────────────────────────────────────────────────────────────
+13:57:04  INFO      step8.query_rag --   Loan Eligibility and Risk Policy
+13:57:04  INFO      step8.query_rag --   =================================
+13:57:04  INFO      step8.query_rag --   Home Loans are offered to customers with a minimum credit score of 680 and a maximum loan-to-value (LTV) ratio of 80%.
+13:57:04  INFO      step8.query_rag --   Personal Loans are unsecured and require a minimum credit score of 650. Maximum tenure is 5 years.
+13:57:04  INFO      step8.query_rag --   Auto Loans require a minimum 20% down payment and have a maximum tenure of 7 years.
+13:57:04  INFO      step8.query_rag --   Any loan account that has missed 3 consecutive EMI payments is classified as Overdue and reported to the credit bureau.
+13:57:04  INFO      step8.query_rag --   Overdue loan accounts are flagged for manual review by the risk management team within 24 hours.
+13:57:04  INFO      step8.query_rag --   Loan interest rates are reviewed quarterly by the credit committee and are linked to the RBI repo rate.
+13:57:04  INFO      step8.query_rag --   Early repayment is permitted without penalty for Home Loans but attracts a 2% prepayment charge for Personal and Auto Loans.
+13:57:04  INFO      step8.query_rag -- ──────────────────────────────────────────────────────────────────
+13:57:04  INFO      step8.query_rag -- 
+13:57:04  INFO      step8.query_rag --   ℹ LLM answer disabled (LLM_PROVIDER=none)
+13:57:04  INFO      step8.query_rag --   To enable: set LLM_PROVIDER=openai and OPENAI_API_KEY in .env
+13:57:04  INFO      step8.query_rag -- 
+13:57:04  INFO      step8.query_rag -- ▶ AWS Neptune SPARQL equivalents (for graph-based queries):
+13:57:04  INFO      step8.query_rag -- 
+13:57:04  INFO      step8.query_rag --   # Find all customers with credit score below 700:
+13:57:04  INFO      step8.query_rag --   PREFIX ex: <https://example.org/esa/>
+13:57:04  INFO      step8.query_rag --   SELECT ?name ?score WHERE {
+13:57:04  INFO      step8.query_rag --     ?c a ex:Customer ;
+13:57:04  INFO      step8.query_rag --        ex:fullName ?name ;
+13:57:04  INFO      step8.query_rag --        ex:creditScore ?score .
+13:57:04  INFO      step8.query_rag --     FILTER(?score < 700)
+13:57:04  INFO      step8.query_rag --   }
+13:57:04  INFO      step8.query_rag -- 
+13:57:04  INFO      step8.query_rag --   # Documents mentioning a specific customer:
+13:57:04  INFO      step8.query_rag --   PREFIX ex: <https://example.org/esa/>
+13:57:04  INFO      step8.query_rag --   SELECT ?doc WHERE {
+13:57:04  INFO      step8.query_rag --     ?doc ex:mentions ex:customer/C001 .
+13:57:04  INFO      step8.query_rag --   }
+13:57:04  INFO      step8.query_rag -- 
+13:57:04  INFO      step8.query_rag -- ── OUTPUT ───────────────────────────────────────────────────────────
+13:57:04  INFO      step8.query_rag --   Passages retrieved : 4
+13:57:04  INFO      step8.query_rag --   LLM answer         : NO (set LLM_PROVIDER=openai)
+13:57:04  INFO      step8.query_rag -- ────────────────────────────────────────────────────────────────────
+13:57:04  INFO      step8.query_rag -- 
+13:57:04  INFO      step8.query_rag -- ✅ Step 8 COMPLETE — Query answered.
+13:57:04  INFO      step8.query_rag --    Log saved → C:\Users\gourav.pattnaik\Downloads\ESL_Local-main\ESL_Local-main\logs\step8_query_rag_20260930_135617.log

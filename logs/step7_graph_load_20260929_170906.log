@@ -1,0 +1,119 @@
+17:09:06  INFO      step7.graph_load -- ======================================================================
+17:09:06  INFO      step7.graph_load -- ESA PIPELINE — STEP 7: Graph Load (RDF → Neo4j / Neptune)
+17:09:06  INFO      step7.graph_load -- ======================================================================
+17:09:06  INFO      step7.graph_load -- 
+17:09:06  INFO      step7.graph_load -- PURPOSE : Load A-Box N-Quads into a graph database for SPARQL/Cypher queries.
+17:09:06  INFO      step7.graph_load -- WHY     : Neptune (or Neo4j locally) enables traversal queries across
+17:09:06  INFO      step7.graph_load --           Customer → Account → Loan → Branch relationships that are
+17:09:06  INFO      step7.graph_load --           difficult in relational databases.
+17:09:06  INFO      step7.graph_load -- 
+17:09:06  INFO      step7.graph_load -- ── INPUT ────────────────────────────────────────────────────────────
+17:09:06  INFO      step7.graph_load --   A-Box N-Quads : C:\Users\gourav.pattnaik\Downloads\ESL_Local-main\ESL_Local-main\local_bucket\knowledge\abox\instances.nq
+17:09:06  INFO      step7.graph_load --   File exists   : True
+17:09:06  INFO      step7.graph_load --   Neo4j URI     : bolt://localhost:7687 (local stand-in for Neptune)
+17:09:06  INFO      step7.graph_load --   Neo4j user    : neo4j
+17:09:06  INFO      step7.graph_load --   Neo4j DB      : neo4j
+17:09:06  INFO      step7.graph_load --   Dry run       : False
+17:09:06  INFO      step7.graph_load -- ────────────────────────────────────────────────────────────────────
+17:09:06  INFO      step7.graph_load --   N-Quads lines (triples) to load: 228
+17:09:06  INFO      step7.graph_load -- 
+17:09:06  INFO      step7.graph_load -- ▶ Loading N-Quads into Neo4j (typed mode) ...
+17:09:06  INFO      step7.graph_load --   Connecting to: bolt://localhost:7687
+17:09:10  INFO      esa.graph_neo4j -- [Neo4j][Typed] Loading N-Quads from: local_bucket\knowledge\abox\instances.nq
+17:09:10  INFO      esa.graph_neo4j -- [Neo4j][Typed] Pass 1: classified 36 typed nodes: {'Loan': 8, 'Branch': 4, 'Customer': 12, 'Account': 12}
+17:09:10  INFO      esa.graph_neo4j -- [Neo4j] Connecting to bolt://localhost:7687 (db=neo4j, user=neo4j)
+17:09:14  ERROR     step7.graph_load --   Neo4j load FAILED: Couldn't connect to localhost:7687 (resolved to ('127.0.0.1:7687', '[::1]:7687')):
+Failed to establish connection to ResolvedIPv4Address(('127.0.0.1', 7687)) (reason [WinError 10061] No connection could be made because the target machine actively refused it)
+Failed to establish connection to ResolvedIPv6Address(('::1', 7687, 0, 0)) (reason [WinError 10061] No connection could be made because the target machine actively refused it)
+17:09:14  ERROR     step7.graph_load -- 
+17:09:14  ERROR     step7.graph_load --   Common fixes:
+17:09:14  ERROR     step7.graph_load --     1. Start Neo4j: neo4j start (or via Neo4j Desktop)
+17:09:14  ERROR     step7.graph_load --     2. Check NEO4J_URI / NEO4J_USER / NEO4J_PASSWORD in .env
+17:09:14  ERROR     step7.graph_load --     3. Neo4j is OPTIONAL — the RDF N-Quads are the canonical output.
+17:09:14  ERROR     step7.graph_load --     4. For AWS target, use Neptune bulk load from S3 instead.
+17:09:14  INFO      step7.graph_load -- 
+17:09:14  INFO      step7.graph_load --   Proceeding to show sample queries regardless ...
+17:09:14  INFO      step7.graph_load -- 
+17:09:14  INFO      step7.graph_load -- ▶ Sample queries for exploration:
+17:09:14  INFO      step7.graph_load -- 
+17:09:14  INFO      step7.graph_load --   ── LOCAL Neo4j Cypher (http://localhost:7474) ──────────────────
+17:09:14  INFO      step7.graph_load --   // Neo4j Cypher -- sample queries (run in Neo4j Browser at http://localhost:7474)
+17:09:14  INFO      step7.graph_load --     // NOTE: These use TYPED nodes -- requires load_nquads_typed() (step7 default).
+17:09:14  INFO      step7.graph_load --   
+17:09:14  INFO      step7.graph_load --     // 1. Count all entity types
+17:09:14  INFO      step7.graph_load --     MATCH (n) RETURN labels(n)[0] AS type, count(n) AS total ORDER BY total DESC;
+17:09:14  INFO      step7.graph_load --   
+17:09:14  INFO      step7.graph_load --     // 2. Find a specific customer and all their details
+17:09:14  INFO      step7.graph_load --     MATCH (c:Customer {id: 'C001'})
+17:09:14  INFO      step7.graph_load --     OPTIONAL MATCH (c)-[:OWNS_ACCOUNT]->(a:Account)
+17:09:14  INFO      step7.graph_load --     OPTIONAL MATCH (c)-[:HAS_LOAN]->(l:Loan)
+17:09:14  INFO      step7.graph_load --     OPTIONAL MATCH (c)-[:REGISTERED_AT]->(b:Branch)
+17:09:14  INFO      step7.graph_load --     RETURN c.fullName, c.creditScore, collect(DISTINCT a.accountType) AS accounts,
+17:09:14  INFO      step7.graph_load --            collect(DISTINCT l.loanType) AS loans, b.branchId;
+17:09:14  INFO      step7.graph_load --   
+17:09:14  INFO      step7.graph_load --     // 3. All customers with their credit scores (sorted high to low)
+17:09:14  INFO      step7.graph_load --     MATCH (c:Customer)
+17:09:14  INFO      step7.graph_load --     RETURN c.id, c.fullName, c.creditScore
+17:09:14  INFO      step7.graph_load --     ORDER BY c.creditScore DESC;
+17:09:14  INFO      step7.graph_load --   
+17:09:14  INFO      step7.graph_load --     // 4. Customers with credit score below 700 and their loan amounts
+17:09:14  INFO      step7.graph_load --     MATCH (c:Customer)-[:HAS_LOAN]->(l:Loan)
+17:09:14  INFO      step7.graph_load --     WHERE c.creditScore < 700
+17:09:14  INFO      step7.graph_load --     RETURN c.fullName, c.creditScore, l.loanType, l.loanAmount
+17:09:14  INFO      step7.graph_load --     ORDER BY c.creditScore;
+17:09:14  INFO      step7.graph_load --   
+17:09:14  INFO      step7.graph_load --     // 5. Total loan amount per branch
+17:09:14  INFO      step7.graph_load --     MATCH (c:Customer)-[:REGISTERED_AT]->(b:Branch)
+17:09:14  INFO      step7.graph_load --     MATCH (c)-[:HAS_LOAN]->(l:Loan)
+17:09:14  INFO      step7.graph_load --     RETURN b.branchId, count(l) AS loans, sum(l.loanAmount) AS total_amount
+17:09:14  INFO      step7.graph_load --     ORDER BY total_amount DESC;
+17:09:14  INFO      step7.graph_load --   
+17:09:14  INFO      step7.graph_load --     // 6. Full graph -- visualise in Neo4j Browser (limit for readability)
+17:09:14  INFO      step7.graph_load --     MATCH path = (c:Customer)-[*1..2]->()
+17:09:14  INFO      step7.graph_load --     RETURN path LIMIT 50;
+17:09:14  INFO      step7.graph_load -- 
+17:09:14  INFO      step7.graph_load --   ── AWS Neptune SPARQL (Neptune endpoint) ───────────────────────
+17:09:14  INFO      step7.graph_load --   # Neptune SPARQL — equivalent queries via SPARQL endpoint
+17:09:14  INFO      step7.graph_load --   
+17:09:14  INFO      step7.graph_load --     # Find all customers and their credit scores
+17:09:14  INFO      step7.graph_load --     PREFIX ex: <https://example.org/esa/>
+17:09:14  INFO      step7.graph_load --     SELECT ?customer ?name ?score WHERE {
+17:09:14  INFO      step7.graph_load --       ?customer a ex:Customer ;
+17:09:14  INFO      step7.graph_load --                 ex:fullName ?name ;
+17:09:14  INFO      step7.graph_load --                 ex:creditScore ?score .
+17:09:14  INFO      step7.graph_load --     } ORDER BY DESC(?score)
+17:09:14  INFO      step7.graph_load --   
+17:09:14  INFO      step7.graph_load --     # Find all loans for a specific customer
+17:09:14  INFO      step7.graph_load --     PREFIX ex: <https://example.org/esa/>
+17:09:14  INFO      step7.graph_load --     SELECT ?loan ?type ?amount WHERE {
+17:09:14  INFO      step7.graph_load --       ex:customer/C001 ex:hasLoan ?loan .
+17:09:14  INFO      step7.graph_load --       ?loan ex:loanType ?type ;
+17:09:14  INFO      step7.graph_load --             ex:loanAmount ?amount .
+17:09:14  INFO      step7.graph_load --     }
+17:09:14  INFO      step7.graph_load --   
+17:09:14  INFO      step7.graph_load --     # Customers with credit score < 700 and their loans
+17:09:14  INFO      step7.graph_load --     PREFIX ex: <https://example.org/esa/>
+17:09:14  INFO      step7.graph_load --     SELECT ?name ?score ?loanId ?amount WHERE {
+17:09:14  INFO      step7.graph_load --       ?c a ex:Customer ;
+17:09:14  INFO      step7.graph_load --          ex:fullName ?name ;
+17:09:14  INFO      step7.graph_load --          ex:creditScore ?score ;
+17:09:14  INFO      step7.graph_load --          ex:hasLoan ?loan .
+17:09:14  INFO      step7.graph_load --       ?loan ex:loanId ?loanId ;
+17:09:14  INFO      step7.graph_load --             ex:loanAmount ?amount .
+17:09:14  INFO      step7.graph_load --       FILTER(?score < 700)
+17:09:14  INFO      step7.graph_load --     }
+17:09:14  INFO      step7.graph_load -- 
+17:09:14  INFO      step7.graph_load -- ── OUTPUT ───────────────────────────────────────────────────────────
+17:09:14  INFO      step7.graph_load --   Neo4j graph populated with A-Box RDF statements
+17:09:14  INFO      step7.graph_load --   N-Quads canonical file : C:\Users\gourav.pattnaik\Downloads\ESL_Local-main\ESL_Local-main\local_bucket\knowledge\abox\instances.nq
+17:09:14  INFO      step7.graph_load --   AWS equivalent         : Neptune bulk load from S3:
+17:09:14  INFO      step7.graph_load --     aws neptune-graph start-import-task \
+17:09:14  INFO      step7.graph_load --       --graph-identifier <graph-id> \
+17:09:14  INFO      step7.graph_load --       --source s3://<bucket>/knowledge/abox/instances.nq \
+17:09:14  INFO      step7.graph_load --       --format NQUADS
+17:09:14  INFO      step7.graph_load -- ────────────────────────────────────────────────────────────────────
+17:09:14  INFO      step7.graph_load -- 
+17:09:14  INFO      step7.graph_load -- ✅ Step 7 COMPLETE — Graph load done (or dry-run shown).
+17:09:14  INFO      step7.graph_load --    Explore the graph: http://localhost:7474 (Neo4j Browser)
+17:09:14  INFO      step7.graph_load --    Next step → Run: python scripts/step8_query_rag.py "your question"
+17:09:14  INFO      step7.graph_load --    Log saved → C:\Users\gourav.pattnaik\Downloads\ESL_Local-main\ESL_Local-main\logs\step7_graph_load_20260929_170906.log
