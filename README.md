@@ -1,8 +1,8 @@
-# Enterprise Semantic Analytics (ESA) — End-to-End Local POC
+# Enterprise Semantic Analytics (ESA) — AWS Serverless Pipeline
 
-A local-first proof of concept for an Enterprise Semantic Analytics architecture: ontology ingestion, structured-data mapping, RDF A-Box generation, document extraction, vector retrieval, entity-resolution candidates, and optional graph visualization.
+This repository contains a fully automated, event-driven AWS Serverless architecture for Enterprise Semantic Analytics. It handles ontology ingestion, structured-data mapping, RDF A-Box generation, document extraction, vector retrieval, entity-resolution candidates, and graph visualization.
 
-> **Important:** This is a learning/POC scaffold, not a production-certified application. Sample data and ontology are fictional. Replace them with approved CENtree exports and authorized data. The AWS templates are guidance and require environment-specific implementation and testing.
+> **Important:** This project has been fully migrated to AWS (S3, Lambda, OpenSearch, and Neo4j Aura). Please see [`docs/AWS_PIPELINE_GUIDE.md`](docs/AWS_PIPELINE_GUIDE.md) for the exact steps to trigger the cloud pipeline.
 
 ---
 
